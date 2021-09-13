@@ -58,16 +58,17 @@ namespace RegForm
         {
 
 
-            using (var connection = new SQLiteConnection(@"Filename=C:\Users\zakor\source\repos\RegForm/database.db"))
+            using (var connection = new SQLiteConnection("Data Source = ./database.db"))
             {
                 
 
                 SQLiteCommand command = connection.CreateCommand();
                 SQLiteCommand cmd = new SQLiteCommand();
-                cmd.CommandText = "SELECT * FROM Users";
+                cmd.CommandText = "INSERT INFO 'Users' ('name', surname', middlename', 'dateOfbirth', 'phoneNumber', 'email') VALUES (@name, @surname, @middlename, @dateOfbirth, @)phoneNumber, @email";
+
+
                 command.Connection = connection;
-                connection.Open();
-                command.ExecuteNonQuery();
+                
 
                 SQLiteParameter nameParam = new SQLiteParameter("@name", nnameField);
                 command.Parameters.Add(nameParam);
@@ -81,7 +82,10 @@ namespace RegForm
                 command.Parameters.Add(phonenumbParam);
                 SQLiteParameter emailParam = new SQLiteParameter("@email", emailField);
                 command.Parameters.Add(emailParam);
-                
+
+                connection.Open();
+                command.ExecuteReader();
+
 
                 MessageBox.Show("БД успешно создана!", "", MessageBoxButtons.OK);
 
