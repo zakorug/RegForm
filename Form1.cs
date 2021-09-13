@@ -13,25 +13,41 @@ using System.Data.Common;
 using System.Data.Entity;
 
 
-
 namespace RegForm
 {
     public partial class Form1 : Form
     {
+
+        
+
         public Form1()
         {
             InitializeComponent();
-            GetList();
-            using (var connection = new SqliteConnection("Data Source=./database.db"))
+            
+            /*using (var connection = new SqliteConnection(@"Filename=C:\Users\zakor\source\repos\RegForm/database.db"))
             {
                 connection.Open();
                 SqliteCommand command = connection.CreateCommand();
                 command.Connection = connection;
-                command.CommandText = "CREATE TABLE Users(_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE, Name TEXT NOT NULL, Surname TEXT NOT NULL, Middlename TEXT NOT NULL, phoneNumber INTEGER NOT NULL UNIQUE, email TEXT NOT NULL UNIQUE, birthDate INTEGER NOT NULL)";
+
+                SqliteParameter nameParam = new SqliteParameter("@name", NameField);
+                command.Parameters.Add(nameParam);
+                SqliteParameter surnameParam = new SqliteParameter("@surname", surnameField);
+                command.Parameters.Add(surnameParam);
+                SqliteParameter middlenameParam = new SqliteParameter("@middlename", middlenameField);
+                command.Parameters.Add(middlenameParam);
+                SqliteParameter datebirthParam = new SqliteParameter("@dateOfbirth", datebirthField);
+                command.Parameters.Add(datebirthParam);
+                SqliteParameter phonenumbParam = new SqliteParameter("@phoneNumber", phonefield);
+                command.Parameters.Add(phonenumbParam);
+                SqliteParameter emailParam = new SqliteParameter("@email", emailField);
+                command.Parameters.Add(emailParam);
                 command.ExecuteNonQuery();
                 MessageBox.Show("БД успешно создана!", "", MessageBoxButtons.OK);
-            }
+            }*/
         }
+
+        
 
         private void label6_Click(object sender, EventArgs e)
         {
@@ -42,16 +58,75 @@ namespace RegForm
         {
 
 
-            SqliteCommand cmd = new SqliteCommand;
-            SqliteCommand command = connection.CreateCommand();
-            command.Connection = new con;
+            using (var connection = new SQLiteConnection(@"Filename=C:\Users\zakor\source\repos\RegForm/database.db"))
+            {
+                
 
-            cmd.Connection = con;
-            cmd.CommandText = "insert into Student(ID,FirstName,LastName) values (" + textBox1.Text + ",'" + textBox2.Text + "','" + textBox3.Text + "')";
-            cmd.ExecuteNonQuery();
-            con.Close();
-            GetList();
+                SQLiteCommand command = connection.CreateCommand();
+                SQLiteCommand cmd = new SQLiteCommand();
+                cmd.CommandText = "SELECT * FROM Users";
+                command.Connection = connection;
+                connection.Open();
+                command.ExecuteNonQuery();
 
-        }
+                SQLiteParameter nameParam = new SQLiteParameter("@name", nnameField);
+                command.Parameters.Add(nameParam);
+                SQLiteParameter surnameParam = new SQLiteParameter("@surname", surnameField);
+                command.Parameters.Add(surnameParam);
+                SQLiteParameter middlenameParam = new SQLiteParameter("@middlename", middlenameField);
+                command.Parameters.Add(middlenameParam);
+                SQLiteParameter datebirthParam = new SQLiteParameter("@dateOfbirth", datebirthField);
+                command.Parameters.Add(datebirthParam);
+                SQLiteParameter phonenumbParam = new SQLiteParameter("@phoneNumber", phonefield);
+                command.Parameters.Add(phonenumbParam);
+                SQLiteParameter emailParam = new SQLiteParameter("@email", emailField);
+                command.Parameters.Add(emailParam);
+                
+
+                MessageBox.Show("БД успешно создана!", "", MessageBoxButtons.OK);
+
+                
+
+
+                /*using (var connection = new SqliteConnection(@"Filename=C:\Users\zakor\source\repos\RegForm/database.db"))
+                {
+                    connection.Open();
+
+                    SqliteCommand command = connection.CreateCommand();
+                    SqliteCommand cmd = new SqliteCommand();
+                    cmd.CommandText = "SELECT * FROM Users";
+                    command.Connection = connection;
+
+                    SqliteParameter nameParam = new SqliteParameter("@name", nnameField);
+                    command.Parameters.Add(nameParam);
+                    SqliteParameter surnameParam = new SqliteParameter("@surname", surnameField);
+                    command.Parameters.Add(surnameParam);
+                    SqliteParameter middlenameParam = new SqliteParameter("@middlename", middlenameField);
+                    command.Parameters.Add(middlenameParam);
+                    SqliteParameter datebirthParam = new SqliteParameter("@dateOfbirth", datebirthField);
+                    command.Parameters.Add(datebirthParam);
+                    SqliteParameter phonenumbParam = new SqliteParameter("@phoneNumber", phonefield);
+                    command.Parameters.Add(phonenumbParam);
+                    SqliteParameter emailParam = new SqliteParameter("@email", emailField);
+                    command.Parameters.Add(emailParam);
+                    connection.Open();
+
+                    MessageBox.Show("БД успешно создана!", "", MessageBoxButtons.OK);
+
+                    command.ExecuteNonQuery();*/
+                }
+
+
+                /* SqliteCommand cmd = new SqliteCommand();
+
+
+                 cmd.Connection = connection;
+                 cmd.CommandText = "insert into Student(name, surname, middlename, dateOfbirth, phoneNumber, email) values (" + NameField.Text + ",'" + surnameField.Text + "','" + middlenameField.Text + "', '" + datebirthField.Text + "', '" + phonefield.Text + "', '" + emailField.Text + "',)";
+                 cmd.ExecuteNonQuery();
+                 connection.Close();*/
+
+
+
+            }
     }
 }
